@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/janis-kra/pickpocket-cli/issues"
   },
-  "homepage": "https://github.com/janis-kra/pickpocket-cli#readme"
+  "homepage": "https://github.com/janis-kra/pickpocket-cli#readme",
+  "dependencies": {
+    "meow": "^3.7.0"
+  },
+  "devDependencies": {
+    "eslint-config-janiskra": "^1.4.0"
+  }
 }
