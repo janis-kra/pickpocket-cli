@@ -6,6 +6,9 @@ const pickpocket = require('pickpocket');
 const log = (msg) => {
   process.stdout.write(`${msg}\n`);
 };
+const logError = (msg) => {
+  process.stderr.write(`${msg}\n`);
+};
 const p = pickpocket({ log: log });
 
 const cli = meow(`
@@ -31,8 +34,11 @@ const cli = meow(`
 
 const flags = cli.flags;
 
-if (flags) {
-  log(JSON.stringify(flags));
+if (flags.length > 0) {
+  if ((flags.archive && !flags.accessToken) || (flags.archive && flags.requestToken)) {
+    logError('cannot archive when no accessToken is set');
+    process.exit(1);
+  }
   if (flags.requestToken) {
     p.obtainAccessToken({ requestToken: flags.requestToken }).then(
       t => log(`pickpocket successfully authorized, your access token is ${t}`)
@@ -51,7 +57,7 @@ if (flags) {
 } else {
   p.obtainRequestToken().then(t => {
     log(`'${t}'`);
-    log(`'${p.getAuthorizeURL({ requestToken: t })}'`);
+    log(`'${p.getAuthorizationURL({ requestToken: t })}'`);
     // TODO save to user prefs
   });
 }
