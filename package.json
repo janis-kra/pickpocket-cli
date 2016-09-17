@@ -6,6 +6,9 @@
   "scripts": {
     "test": "ava test.js"
   },
+  "bin": {
+    "pickpocket": "cli.js"
+  },
   "files": [
     "cli.js"
   ],
