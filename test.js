@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const test = require('ava').test;
 const execa = require('execa');
-require('dotenv').config();
 
 const requestTokenRegexp = /^'(\w+-){4}\w+'$/; // 'ced23d1d-12e5-7d12-ba9c-d1d6ea'
 const urlRegexp = /^'https:\/\/getpocket.com\/auth\/authorize/;

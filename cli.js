@@ -55,9 +55,9 @@ if (flags.length > 0) {
     });
   }
 } else {
-  p.obtainRequestToken().then(t => {
-    log(`'${t}'`);
-    log(`'${p.getAuthorizationURL({ requestToken: t })}'`);
+  p.authorize().then(a => {
+    log(`'${a.token}'`);
+    log(`'${a.authorizationUrl}'`);
     // TODO save to user prefs
   });
 }
