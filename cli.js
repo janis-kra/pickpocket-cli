@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 'use strict';
+const Conf = require('conf');
 const meow = require('meow');
 const pickpocket = require('pickpocket');
 
+const config = new Conf();
 const log = (msg) => {
   process.stdout.write(`${msg}\n`);
 };
@@ -46,9 +48,12 @@ if (flags.length > 0) {
   }
   if (flags.accessToken) {
     p.setAccessToken(flags.accessToken);
-    // TODO: save to user prefs
+    config.set('accessToken', flags.accessToken);
   }
   if (flags.archive) {
+    if (!p.isAuthorized()) {
+      p.setAccessToken(config.get('accessToken'));
+    }
     p.archiveOverdueArticles({
       favorites: (flags.favorites === 'true') || false,
       maxMonths: Number(flags.ageMonths || 0)
@@ -57,7 +62,8 @@ if (flags.length > 0) {
 } else {
   p.authorize().then(a => {
     log(`'${a.token}'`);
+    config.set('requestToken', a.token);
     log(`'${a.authorizationUrl}'`);
-    // TODO save to user prefs
+    config.set('authorizationUrl', a.authorizationUrl);
   });
 }

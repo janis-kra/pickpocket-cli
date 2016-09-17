@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/janis-kra/pickpocket-cli#readme",
   "dependencies": {
+    "conf": "^0.11.2",
     "meow": "^3.7.0",
     "pickpocket": "^1.0.0"
   },
